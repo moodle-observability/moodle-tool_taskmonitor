@@ -1,3 +1,5 @@
+<img src="docs/logo/logo.svg" alt="moodle-tool_taskmonitor logo" width="96" align="right" />
+
 # moodle-tool_taskmonitor
 
 [![Documentation](https://github.com/moodle-observability/moodle-tool_taskmonitor/actions/workflows/docs.yml/badge.svg)](https://github.com/moodle-observability/moodle-tool_taskmonitor/actions/workflows/docs.yml)

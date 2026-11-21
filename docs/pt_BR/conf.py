@@ -33,3 +33,7 @@ html_theme_options = {
 }
 
 html_static_path = []
+
+# Logo e favicon do plugin (fonte em docs/logo/; logo quadrada, sem cantos arredondados).
+html_logo = "../logo/logo.svg"
+html_favicon = "../logo/favicon.ico"
