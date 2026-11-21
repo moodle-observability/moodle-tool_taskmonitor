@@ -35,7 +35,9 @@ final class hook_callbacks {
      */
     public static function after_config(\core\hook\after_config $hook): void {
         global $CFG;
-        if (CLI_SCRIPT || during_initial_install() || !empty($CFG->upgraderunning) || defined('ABORT_AFTER_CONFIG')) {
+        // Test sites never run cron: checking it there would only raise alerts.
+        if (CLI_SCRIPT || during_initial_install() || !empty($CFG->upgraderunning) || defined('ABORT_AFTER_CONFIG')
+                || defined('BEHAT_SITE_RUNNING')) {
             return;
         }
         try {
