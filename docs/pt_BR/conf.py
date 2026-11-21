@@ -3,7 +3,7 @@ import moodle_docs_theme
 project = "moodle-tool_taskmonitor"
 copyright = "2026, Contribuidores da Moodle Observability"
 author = "Kelson da Costa Medeiros"
-release = "0.1.0-dev"
+release = "0.1.0"
 
 extensions = [
     "sphinx.ext.githubpages",
@@ -29,7 +29,7 @@ html_theme_options = {
     "doc_path": "docs/pt_BR/",
     "show_edit_on_github": True,
     "enable_dark_mode": True,
-    "navigation_links": "Início|index, Instalação|installation, Configuração|configuration, Uso|usage",
+    "navigation_links": "Início|index, Instalação|installation, Configuração|configuration, Uso|usage, Extensão|extending",
 }
 
 html_static_path = []
