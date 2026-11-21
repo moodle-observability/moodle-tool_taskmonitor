@@ -1,0 +1,118 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template tool_taskmonitor/report
+
+    Task health report.
+
+    Example context (json):
+    {
+        "cron": {"ok": true, "text": "Last cron start: Saturday, 21 November 2026, 5:00 PM (1 min ago)"},
+        "hasalerts": true,
+        "alerts": [{"title": "Scheduled task \\core\\task\\x is failing", "severity": "warning", "critical": false,
+            "since": "Saturday, 21 November 2026, 4:00 PM"}],
+        "hasfailing": false, "failing": [],
+        "hasslow": true,
+        "slow": [{"classname": "\\core\\task\\x", "runs": 10, "failures": 1, "hasfailures": true,
+            "avgduration": "0.50 s", "maxduration": "2.00 s"}],
+        "hasqueue": false, "queue": []
+    }
+}}
+<div class="tool-taskmonitor-report">
+    <h3>{{#str}}cron, tool_taskmonitor{{/str}}</h3>
+    <div class="alert {{#cron.ok}}alert-success{{/cron.ok}}{{^cron.ok}}alert-danger{{/cron.ok}}" role="status">{{cron.text}}</div>
+
+    <h3>{{#str}}activealerts, tool_taskmonitor{{/str}}</h3>
+    {{#hasalerts}}
+    <table class="table table-striped generaltable">
+        <thead><tr>
+            <th scope="col">{{#str}}severity, tool_taskmonitor{{/str}}</th>
+            <th scope="col">{{#str}}alert, tool_taskmonitor{{/str}}</th>
+            <th scope="col">{{#str}}since, tool_taskmonitor{{/str}}</th>
+        </tr></thead>
+        <tbody>
+        {{#alerts}}
+            <tr>
+                <td><span class="badge {{#critical}}text-bg-danger{{/critical}}{{^critical}}text-bg-warning{{/critical}}">{{severity}}</span></td>
+                <td>{{title}}</td>
+                <td>{{since}}</td>
+            </tr>
+        {{/alerts}}
+        </tbody>
+    </table>
+    {{/hasalerts}}
+    {{^hasalerts}}<p>{{#str}}noalerts, tool_taskmonitor{{/str}}</p>{{/hasalerts}}
+
+    <h3>{{#str}}scheduledfailing, tool_taskmonitor{{/str}}</h3>
+    {{#hasfailing}}
+    <table class="table table-striped generaltable">
+        <thead><tr>
+            <th scope="col">{{#str}}classname, tool_taskmonitor{{/str}}</th>
+            <th scope="col">{{#str}}faildelay, tool_taskmonitor{{/str}}</th>
+            <th scope="col">{{#str}}lastruntime, tool_taskmonitor{{/str}}</th>
+        </tr></thead>
+        <tbody>
+        {{#failing}}
+            <tr><td>{{classname}}</td><td>{{faildelay}}</td><td>{{lastruntime}}</td></tr>
+        {{/failing}}
+        </tbody>
+    </table>
+    {{/hasfailing}}
+    {{^hasfailing}}<p>{{#str}}nofailingtasks, tool_taskmonitor{{/str}}</p>{{/hasfailing}}
+
+    <h3>{{#str}}slowtasks, tool_taskmonitor{{/str}}</h3>
+    {{#hasslow}}
+    <table class="table table-striped generaltable">
+        <thead><tr>
+            <th scope="col">{{#str}}classname, tool_taskmonitor{{/str}}</th>
+            <th scope="col">{{#str}}runs, tool_taskmonitor{{/str}}</th>
+            <th scope="col">{{#str}}failures, tool_taskmonitor{{/str}}</th>
+            <th scope="col">{{#str}}avgduration, tool_taskmonitor{{/str}}</th>
+            <th scope="col">{{#str}}maxduration, tool_taskmonitor{{/str}}</th>
+        </tr></thead>
+        <tbody>
+        {{#slow}}
+            <tr>
+                <td>{{classname}}</td><td>{{runs}}</td>
+                <td>{{#hasfailures}}<span class="text-danger">{{failures}}</span>{{/hasfailures}}{{^hasfailures}}0{{/hasfailures}}</td>
+                <td>{{avgduration}}</td><td>{{maxduration}}</td>
+            </tr>
+        {{/slow}}
+        </tbody>
+    </table>
+    {{/hasslow}}
+    {{^hasslow}}<p>{{#str}}notasklog, tool_taskmonitor{{/str}}</p>{{/hasslow}}
+
+    <h3>{{#str}}adhocqueue, tool_taskmonitor{{/str}}</h3>
+    {{#hasqueue}}
+    <table class="table table-striped generaltable">
+        <thead><tr>
+            <th scope="col">{{#str}}classname, tool_taskmonitor{{/str}}</th>
+            <th scope="col">{{#str}}count, tool_taskmonitor{{/str}}</th>
+            <th scope="col">{{#str}}failing, tool_taskmonitor{{/str}}</th>
+            <th scope="col">{{#str}}running, tool_taskmonitor{{/str}}</th>
+            <th scope="col">{{#str}}oldestage, tool_taskmonitor{{/str}}</th>
+        </tr></thead>
+        <tbody>
+        {{#queue}}
+            <tr><td>{{classname}}</td><td>{{count}}</td><td>{{failing}}</td><td>{{running}}</td><td>{{oldest}}</td></tr>
+        {{/queue}}
+        </tbody>
+    </table>
+    {{/hasqueue}}
+    {{^hasqueue}}<p>{{#str}}noqueue, tool_taskmonitor{{/str}}</p>{{/hasqueue}}
+</div>

@@ -3,21 +3,22 @@ moodle-tool_taskmonitor
 
 **Monitor de cron e tarefas para o Moodle.**
 
-Acompanha o cron do Moodle e as tarefas agendadas e adhoc, guarda o histórico de duração e falhas e avisa os administradores quando algo para ou falha repetidamente.
+Acompanha o cron do Moodle e as tarefas agendadas e adhoc, avisa os administradores quando algo para ou falha repetidamente e mostra um relatório de saúde das tarefas.
 
 .. note::
 
-   Em desenvolvimento, com foco no milestone ``v0.1.0 – MVP``. Ainda não há versão publicada.
-   Acompanhe o andamento nas `issues <https://github.com/moodle-observability/moodle-tool_taskmonitor/issues>`_.
+   Versão 0.1.0 (alfa). Acompanhe o andamento nas `issues <https://github.com/moodle-observability/moodle-tool_taskmonitor/issues>`_.
 
-Funcionalidades previstas
--------------------------
+Funcionalidades
+---------------
 
-* Detecta cron parado (limite configurável).
-* Registra duração e falhas das tarefas agendadas, com retenção.
-* Detecta adhoc tasks presas ou falhando repetidamente.
-* Página de relatório com a visão geral da saúde das tarefas.
-* Alertas pela API de mensagens do Moodle, sem repetição excessiva.
+* **Cron parado**: alerta quando o cron não inicia há mais tempo que o limite (15 minutos por padrão). Como um cron parado não consegue avisar, as requisições web também verificam, no máximo uma vez por minuto.
+* **Tarefas agendadas com falha**: alerta para tarefas agendadas habilitadas com fail delay.
+* **Adhoc tasks**: alerta para tarefas falhando repetidamente, tarefas presas em execução e fila atrasada.
+* **Alertas sem spam**: uma mensagem quando o alerta surge e outra quando é resolvido, nunca repetida enquanto continua ativo.
+* **Entrega**: mensagens do Moodle (e-mail e notificações) para os administradores do site e usuários com ``tool/taskmonitor:receivealerts``, além de um hook para outros canais (:doc:`extending`).
+* **Relatório**: *Administração do site > Relatórios > Task health*, com o estado do cron, alertas ativos, tarefas agendadas com falha, as tarefas agendadas mais lentas das últimas 24 horas (do log de tarefas do core) e a fila de adhoc tasks por tarefa.
+* **Métricas**: com o ``tool_prometheus`` instalado, os alertas ativos são exportados como ``moodle_tool_taskmonitor_alerts_active``.
 
 Requisitos
 ----------
@@ -40,3 +41,4 @@ Links
    installation
    configuration
    usage
+   extending

@@ -1,22 +1,13 @@
 Installation
 ============
 
-.. note::
+1. Download ``tool_taskmonitor-<version>.zip`` from the `releases <https://github.com/moodle-observability/moodle-tool_taskmonitor/releases>`_, or clone the repository into ``public/admin/tool/taskmonitor``:
 
-   There is no release yet. These steps install the development version.
+   .. code-block:: bash
 
-With Git
---------
+      git clone https://github.com/moodle-observability/moodle-tool_taskmonitor.git public/admin/tool/taskmonitor
 
-From the Moodle root folder (``public`` on Moodle 5.1 and later):
+2. Run ``php admin/cli/upgrade.php`` (or open *Site administration > Notifications*).
+3. Check that Moodle can send e-mail: alerts use the Moodle messaging system.
 
-.. code-block:: bash
-
-   git clone https://github.com/moodle-observability/moodle-tool_taskmonitor.git admin/tool/taskmonitor
-
-Then open *Site administration > Notifications* to finish the installation, or run ``php admin/cli/upgrade.php``.
-
-Uninstall
----------
-
-*Site administration > Plugins > Plugins overview*, find ``tool_taskmonitor`` and click *Uninstall*.
+Uninstall: *Site administration > Plugins > Plugins overview*, ``tool_taskmonitor``, *Uninstall*.
